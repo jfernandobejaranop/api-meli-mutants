@@ -28,12 +28,9 @@ func MeliContextDB() *mongo.Database {
 }
 
 func saveTransactions(req Mutant) *mongo.InsertOneResult {
-
 	result, err := MutantsTransactions_cll.InsertOne(context.TODO(), req)
-
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	return result
 }
