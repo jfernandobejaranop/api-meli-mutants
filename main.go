@@ -1,9 +1,19 @@
 package main
 
 import (
-	"fmt"
+	"log"
+	"net/http"
+	"os"
 )
 
 func main() {
-	fmt.Println("technical challenge for meli")
+	router := NewRouter()
+
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		port = "8000"
+	}
+	server := http.ListenAndServe(":"+port, router)
+	log.Fatal(server)
 }
