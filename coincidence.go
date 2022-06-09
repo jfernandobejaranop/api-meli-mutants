@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"regexp"
 )
 
@@ -9,8 +10,8 @@ func matchValidate(dna []string) bool {
 
 	for i := 0; i < len(dna); i++ {
 		if re.MatchString(dna[i]) {
+			fmt.Println("entro : ", dna[i])
 			return true
-			break
 		}
 	}
 	return false

@@ -27,8 +27,8 @@ func MeliContextDB() *mongo.Database {
 	return client.Database("MELI")
 }
 
-func saveTransactions(req Mutant) *mongo.InsertOneResult {
-	result, err := MutantsTransactions_cll.InsertOne(context.TODO(), req)
+func saveTransactions(dna []string) *mongo.InsertOneResult {
+	result, err := MutantsTransactions_cll.InsertOne(context.TODO(), dna)
 	if err != nil {
 		log.Fatal(err)
 	}
