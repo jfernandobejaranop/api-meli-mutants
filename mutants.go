@@ -10,7 +10,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hola mundo desde mi servidor GO")
 }
 
-func IsMutant(w http.ResponseWriter, r *http.Request) {
+func mutant(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	var dna Mutant
 
@@ -20,6 +20,8 @@ func IsMutant(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
+	saveTransactions(dna)
+
 	defer r.Body.Close()
 
 	if ismutant(dna) {
@@ -27,7 +29,6 @@ func IsMutant(w http.ResponseWriter, r *http.Request) {
 	} else {
 		Response(w, 403)
 	}
-
 }
 
 func Response(w http.ResponseWriter, status int) {
