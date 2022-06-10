@@ -24,6 +24,10 @@ End point whit detects if a human is mutant sending the DNA sequence through an 
 
   ```json
   {"dna":["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"]}
+
+  {"dna":["ATGT","CAGT","TTAT","AGAA"]}
+
+  {"dna":["ATGTAAAC","CAGTTTGA","TTATGACC","AGAACCTA","ATGTCAGT","TTATAGAA","CAGTTTGA","TTATGACC"]}
   ```
   
 - **Response:**
