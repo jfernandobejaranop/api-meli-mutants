@@ -19,13 +19,11 @@ func VerticalArray(dna []string) bool {
 
 	for fila := 0; fila < len(dna); fila++ {
 		row = ""
-
 		for letra := 0; letra < len(dna); letra++ {
 			row = row + dna[letra][fila:fila+1] //matriz 2
 		}
 		arrB = append(arrB, row)
 	}
-
 	fmt.Println("Vertical : ", arrB)
 	return matchValidate(arrB)
 }
@@ -35,7 +33,6 @@ func RightDiagonalArray(dna []string) bool {
 	var arrG [12][12]string
 	var arrD []string
 	var arrH []string
-
 	lenDna := len(dna)
 
 	//Lista a Matriz
