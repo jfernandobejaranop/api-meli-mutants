@@ -18,8 +18,3 @@ func IsMutant(dna []string) bool {
 	}
 	return false
 }
-
-type Mutant struct {
-	Dna      []string `json:"dna"`
-	IsMutant bool
-}

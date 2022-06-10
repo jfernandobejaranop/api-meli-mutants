@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	"github.com/api-meli-mutants/mutant/mutants"
+	"github.com/api-meli-mutants/mutants/mutants"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -61,10 +61,4 @@ func StatisticsBD() status {
 		CountHuman:  cantNoMutants,
 		Ratio:       calculateRatio(cantMutants, cantNoMutants),
 	}
-}
-
-type status struct {
-	CountMutant int `json:"count_mutant_dna"`
-	CountHuman  int `json:"count_human_dna"`
-	Ratio       int `json:"ratio"`
 }
