@@ -5,8 +5,8 @@ import (
 	"strings"
 )
 
-var arrC [][]string
 var letra string
+var arrC [][]string
 
 func HorizontalArray(dna []string) bool {
 	fmt.Println("Horizontal : ", dna)
@@ -20,7 +20,7 @@ func VerticalArray(dna []string) bool {
 	for fila := 0; fila < len(dna); fila++ {
 		row = ""
 		for letra := 0; letra < len(dna); letra++ {
-			row = row + dna[letra][fila:fila+1] //matriz 2
+			row = row + dna[letra][fila:fila+1]
 		}
 		arrB = append(arrB, row)
 	}

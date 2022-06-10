@@ -8,7 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var MutantsTransactions_cll = MeliContextDB().Collection("MutantsTransactions")
+var collection = MeliContextDB().Collection("MutantsTransactions")
 
 const uri = "mongodb+srv://root:admin@atlascluster.fewo3js.mongodb.net/?retryWrites=true&w=majority"
 
@@ -27,8 +27,8 @@ func MeliContextDB() *mongo.Database {
 	return client.Database("MELI")
 }
 
-func saveTransactions(dna []string) *mongo.InsertOneResult {
-	result, err := MutantsTransactions_cll.InsertOne(context.TODO(), dna)
+func saveTransactions(rst Mutant) *mongo.InsertOneResult {
+	result, err := collection.InsertOne(context.TODO(), rst)
 	if err != nil {
 		log.Fatal(err)
 	}

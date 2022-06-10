@@ -7,31 +7,35 @@ import (
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hola mundo desde mi servidor GO")
+	fmt.Fprintf(w, "technical challenge for MELI")
 }
 
 func mutant(w http.ResponseWriter, r *http.Request) {
-	decoder := json.NewDecoder(r.Body)
-	var req Mutant
+	var body = DecoderBody(r)
+	var isMutant bool = IsMutant(body.Dna)
 
-	err := decoder.Decode(&req)
+	body.IsMutant = isMutant
+	saveTransactions(body)
 
-	if err != nil {
-		panic(err)
-	}
-
-	defer r.Body.Close()
-	//saveTransactions(req.Dna)
-
-	if IsMutant(req.Dna) {
+	if isMutant {
 		Response(w, 200)
 	} else {
 		Response(w, 403)
 	}
 }
 
-func IsMutant(dna []string) bool {
+func DecoderBody(r *http.Request) Mutant {
+	var dna Mutant
+	decoder := json.NewDecoder(r.Body)
+	err := decoder.Decode(&dna)
+	if err != nil {
+		panic(err)
+	}
+	defer r.Body.Close()
+	return dna
+}
 
+func IsMutant(dna []string) bool {
 	if HorizontalArray(dna) {
 		fmt.Println("entraHorizontal")
 		return true
@@ -52,5 +56,6 @@ func Response(w http.ResponseWriter, status int) {
 }
 
 type Mutant struct {
-	Dna []string `json:"dna"`
+	Dna      []string `json:"dna"`
+	IsMutant bool
 }
