@@ -1,19 +1,8 @@
-package main
+package controllers
 
 import (
-	"net/http"
-
 	"github.com/gorilla/mux"
 )
-
-type Route struct {
-	Name       string
-	Method     string
-	Pattern    string
-	HandleFunc http.HandlerFunc
-}
-
-type Routes []Route
 
 func NewRouter() *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
@@ -25,12 +14,11 @@ func NewRouter() *mux.Router {
 			Name(route.Name).
 			Handler(route.HandleFunc)
 	}
-
 	return router
 }
 
 var routes = Routes{
 	Route{"Index", "GET", "/", Index},
-	Route{"mutant", "POST", "/mutant", mutant},
-	Route{"Statistics", "POST", "/stats", Statistics},
+	Route{"Mutants", "POST", "/mutant", Mutants},
+	Route{"Statistics", "GET", "/stats", Statistics},
 }

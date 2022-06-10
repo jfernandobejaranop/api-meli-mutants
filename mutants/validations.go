@@ -1,7 +1,6 @@
-package main
+package mutants
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -9,7 +8,6 @@ var letra string
 var arrC [][]string
 
 func HorizontalArray(dna []string) bool {
-	fmt.Println("Horizontal : ", dna)
 	return matchValidate(dna)
 }
 
@@ -24,7 +22,6 @@ func VerticalArray(dna []string) bool {
 		}
 		arrB = append(arrB, row)
 	}
-	fmt.Println("Vertical : ", arrB)
 	return matchValidate(arrB)
 }
 
@@ -82,8 +79,6 @@ func RightDiagonalArray(dna []string) bool {
 		arrH = append(arrH, letra)
 		letra = ""
 	}
-
-	fmt.Println("Diagonal derecha : ", arrH)
 	return matchValidate(arrH)
 }
 
@@ -138,7 +133,5 @@ func LeftDiagonalArray(dna []string) bool {
 		arrK = append(arrK, letra)
 		letra = ""
 	}
-
-	fmt.Println("Diagonal izquierda : ", arrK)
 	return matchValidate(arrK)
 }
