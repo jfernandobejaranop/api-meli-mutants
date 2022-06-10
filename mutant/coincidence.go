@@ -1,4 +1,4 @@
-package mutants
+package mutant
 
 import (
 	"regexp"
