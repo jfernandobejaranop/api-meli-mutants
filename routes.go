@@ -32,4 +32,5 @@ func NewRouter() *mux.Router {
 var routes = Routes{
 	Route{"Index", "GET", "/", Index},
 	Route{"mutant", "POST", "/mutant", mutant},
+	Route{"Statistics", "POST", "/stats", Statistics},
 }

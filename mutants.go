@@ -9,13 +9,18 @@ import (
 func Index(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "technical challenge for MELI")
 }
+func Statistics(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	json.NewEncoder(w).Encode(Stats())
+}
 
 func mutant(w http.ResponseWriter, r *http.Request) {
 	var body = DecoderBody(r)
 	var isMutant bool = IsMutant(body.Dna)
 
 	body.IsMutant = isMutant
-	saveTransactions(body)
+	SaveTransactions(body)
 
 	if isMutant {
 		Response(w, 200)
