@@ -5,11 +5,11 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/api-meli-mutants/controllers/routes"
+	"github.com/api-meli-mutants/controllers"
 )
 
 func main() {
-	router := routes.NewRouter()
+	router := controllers.NewRouter()
 
 	port := os.Getenv("PORT")
 

@@ -4,7 +4,8 @@ import (
 	"context"
 	"log"
 
-	"github.com/api-meli-mutants/mutants/mutants"
+	/*"github.com/api-meli-mutants/mutant/mutants"*/
+	"github.com/api-meli-mutants/mutant"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -28,7 +29,7 @@ func MeliContextDB() *mongo.Database {
 	return client.Database("MELI")
 }
 
-func SaveTransactions(rst mutants.Mutant) *mongo.InsertOneResult {
+func SaveTransactions(rst mutant.Mutant) *mongo.InsertOneResult {
 	result, err := collection.InsertOne(context.TODO(), rst)
 	if err != nil {
 		log.Fatal(err)

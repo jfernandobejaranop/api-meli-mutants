@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/api-meli-mutants/database/context"
-	"github.com/api-meli-mutants/mutants/mutants"
+	"github.com/api-meli-mutants/database"
+	"github.com/api-meli-mutants/mutant"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
@@ -15,15 +15,15 @@ func Index(w http.ResponseWriter, r *http.Request) {
 func Statistics(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(200)
-	json.NewEncoder(w).Encode(context.StatisticsBD())
+	json.NewEncoder(w).Encode(database.StatisticsBD())
 }
 
 func Mutants(w http.ResponseWriter, r *http.Request) {
 	var body = DecoderBody(r)
-	var isMutant bool = mutants.IsMutant(body.Dna)
+	var isMutant bool = mutant.IsMutant(body.Dna)
 
 	body.IsMutant = isMutant
-	context.SaveTransactions(body)
+	database.SaveTransactions(body)
 
 	if isMutant {
 		Response(w, 200)
@@ -37,8 +37,8 @@ func Response(w http.ResponseWriter, status int) {
 	w.WriteHeader(status)
 }
 
-func DecoderBody(r *http.Request) mutants.Mutant {
-	var dna mutants.Mutant
+func DecoderBody(r *http.Request) mutant.Mutant {
+	var dna mutant.Mutant
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&dna)
 	if err != nil {
