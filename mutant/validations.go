@@ -1,37 +1,43 @@
 package mutant
 
 import (
+	"fmt"
 	"strings"
 )
 
 var letra string
 var arrC [][]string
 
+const t = 1000
+
 func HorizontalArray(dna []string) bool {
-	return matchValidate(dna)
+	fmt.Println("horizontal ", dna)
+	return MatchValidateDNA(dna)
 }
 
 func VerticalArray(dna []string) bool {
 	var row string
-	var arrB []string
+	var arrVer []string
 
 	for fila := 0; fila < len(dna); fila++ {
 		row = ""
 		for letra := 0; letra < len(dna); letra++ {
 			row = row + dna[letra][fila:fila+1]
 		}
-		arrB = append(arrB, row)
+		arrVer = append(arrVer, row)
 	}
-	return matchValidate(arrB)
+	fmt.Println("Vertical ", arrVer)
+	return MatchValidateDNA(arrVer)
 }
 
 func RightDiagonalArray(dna []string) bool {
 
-	var arrG [12][12]string
-	var arrD []string
-	var arrH []string
+	var arrMD [t][t]string //Matriz de Diagonales Derechas
+	var arrD1 []string     //Array Diagonal Part 1
+	var arrD2 []string     //Array Diagonal Part 2
 	lenDna := len(dna)
 
+	arrC = nil
 	//Lista a Matriz
 	for fil := 0; fil < lenDna; fil++ {
 		arrC = append(arrC, strings.Split(dna[fil], ""))
@@ -45,7 +51,7 @@ func RightDiagonalArray(dna []string) bool {
 				break
 			}
 		}
-		arrD = append(arrD, letra)
+		arrD1 = append(arrD1, letra)
 		letra = ""
 	}
 
@@ -57,38 +63,39 @@ func RightDiagonalArray(dna []string) bool {
 			}
 			letra = letra + arrC[fil+col][fil]
 		}
-		arrD[fil] = arrD[fil] + letra
+		arrD1[fil] = arrD1[fil] + letra
 		letra = ""
 	}
 
 	//Pivoteo matriz
-	for fil := 0; fil < len(arrD); fil++ {
-		splits := strings.Split(arrD[fil], "")
+	for fil := 0; fil < len(arrD1); fil++ {
+		splits := strings.Split(arrD1[fil], "")
 		for col := range splits {
 			if !(splits[col] == "") {
-				arrG[col+fil][fil] = splits[col]
+				arrMD[col+fil][fil] = splits[col]
 			}
 		}
 	}
 
 	// Pivote final
-	for fil := range arrG {
-		for col := 0; col < len(arrG[fil]); col++ {
-			letra = letra + arrG[fil][col]
+	for fil := range arrMD {
+		for col := 0; col < len(arrMD[fil]); col++ {
+			letra = letra + arrMD[fil][col]
 		}
-		arrH = append(arrH, letra)
+		arrD2 = append(arrD2, letra)
 		letra = ""
 	}
-	return matchValidate(arrH)
+
+	fmt.Println("iagonalDerechas", arrD2)
+	return MatchValidateDNA(arrD2)
 }
 
 func LeftDiagonalArray(dna []string) bool {
-
-	var arrI [12][12]string
-	var arrJ []string
-	var arrK []string
-	var cont int = 0
 	lenDna := len(dna)
+	var arrML [t][t]string // Matriz Diagonales Izquierdas
+	var arrL1 []string     // Array Diagonal Part 1
+	var arrL2 []string     // Array Diagonal Part 2
+	var cont int = 0
 
 	//PRIMERA PARTE MATRIZ
 	for fil := range arrC {
@@ -98,7 +105,7 @@ func LeftDiagonalArray(dna []string) bool {
 			}
 			letra = letra + arrC[col][fil]
 		}
-		arrJ = append(arrJ, letra)
+		arrL1 = append(arrL1, letra)
 		letra = ""
 	}
 
@@ -110,28 +117,38 @@ func LeftDiagonalArray(dna []string) bool {
 			}
 			letra = letra + arrC[col+cont][fil]
 		}
-		arrJ[cont] = arrJ[cont] + letra
+		arrL1[cont] = arrL1[cont] + letra
 		letra = ""
 		cont++
 	}
 
 	//PIVOTEO MATRIZ COMPLETA
-	for fil := 0; fil < len(arrJ); fil++ {
-		splits := strings.Split(arrJ[fil], "")
+	for fil := 0; fil < len(arrL1); fil++ {
+		splits := strings.Split(arrL1[fil], "")
 		for col := range splits {
 			if !(splits[col] == "") {
-				arrI[col+fil][fil] = splits[col]
+				arrML[col+fil][fil] = splits[col]
 			}
 		}
 	}
 
 	// PIVOTE FINAL
-	for fil := range arrI {
-		for col := 0; col < len(arrI[fil]); col++ {
-			letra = letra + arrI[fil][col]
+	for fil := range arrML {
+		for col := 0; col < len(arrML[fil]); col++ {
+			letra = letra + arrML[fil][col]
 		}
-		arrK = append(arrK, letra)
+		arrL2 = append(arrL2, letra)
 		letra = ""
 	}
-	return matchValidate(arrK)
+
+	fmt.Println("Diagonal izquierda", arrL2)
+	return MatchValidateDNA(arrL2)
+}
+func ValidateMatrizDimensions(dna []string) bool {
+	for i := 0; i < len(dna); i++ {
+		if len(dna[i]) != len(dna) {
+			return false
+		}
+	}
+	return true
 }

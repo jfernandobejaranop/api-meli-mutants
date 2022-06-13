@@ -4,7 +4,6 @@ import (
 	"context"
 	"log"
 
-	/*"github.com/api-meli-mutants/mutant/mutants"*/
 	"github.com/api-meli-mutants/mutant"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -29,7 +28,7 @@ func MeliContextDB() *mongo.Database {
 	return client.Database("MELI")
 }
 
-func SaveTransactions(rst mutant.Mutant) *mongo.InsertOneResult {
+func SaveTransactions(rst mutant.MutantInfo) *mongo.InsertOneResult {
 	result, err := collection.InsertOne(context.TODO(), rst)
 	if err != nil {
 		log.Fatal(err)
@@ -45,9 +44,9 @@ func CountDocuments(filter bson.M) int64 {
 	return cantMutants
 }
 
-func calculateRatio(num1 int, num2 int) int {
+func calculateRatio(num1 int, num2 int) float32 {
 	if num1 > 0 && num2 > 0 {
-		return num1 / num2
+		return float32(num1 / num2)
 	} else {
 		return 0
 	}

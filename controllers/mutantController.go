@@ -19,16 +19,23 @@ func Statistics(w http.ResponseWriter, r *http.Request) {
 }
 
 func Mutants(w http.ResponseWriter, r *http.Request) {
+	//Decode request
 	var body = DecoderBody(r)
-	var isMutant bool = mutant.IsMutant(body.Dna)
+	//Body validations
+	if mutant.ValidateMatrizDimensions(body.Dna) {
+		//Valid mutant
+		var isMutant bool = mutant.IsMutant(body.Dna)
+		body.IsMutant = isMutant
 
-	body.IsMutant = isMutant
-	database.SaveTransactions(body)
+		database.SaveTransactions(body)
 
-	if isMutant {
-		Response(w, 200)
+		if isMutant {
+			Response(w, 200)
+		} else {
+			Response(w, 403)
+		}
 	} else {
-		Response(w, 403)
+		Response(w, 400)
 	}
 }
 
@@ -37,13 +44,12 @@ func Response(w http.ResponseWriter, status int) {
 	w.WriteHeader(status)
 }
 
-func DecoderBody(r *http.Request) mutant.Mutant {
-	var dna mutant.Mutant
+func DecoderBody(r *http.Request) mutant.MutantInfo {
+	var dna mutant.MutantInfo
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&dna)
 	if err != nil {
 		panic(err)
 	}
-	defer r.Body.Close()
 	return dna
 }

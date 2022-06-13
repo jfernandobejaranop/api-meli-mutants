@@ -1,7 +1,7 @@
 
 # Technical challenge for MELI
 
-Api rest that identifies mutants by the nitrogenous base of ADN 
+Api rest that identifies mutants by the nitrogenous base of DNA 
 _______________________________________________
 
 ### Consume
@@ -37,7 +37,7 @@ End point whit detects if a human is mutant sending the DNA sequence through an 
    
 ### 2. Stats:
 
-End Point which returns statistics of the ADN checks
+End Point which returns statistics of the DNA checks
 
 - **URL:** https://api-meli-mutants.herokuapp.com/stats
 
