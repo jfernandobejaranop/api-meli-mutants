@@ -1,7 +1,6 @@
 package mutant
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -11,7 +10,6 @@ var arrC [][]string
 const t = 1000
 
 func HorizontalArray(dna []string) bool {
-	fmt.Println("horizontal ", dna)
 	return MatchValidateDNA(dna)
 }
 
@@ -26,7 +24,6 @@ func VerticalArray(dna []string) bool {
 		}
 		arrVer = append(arrVer, row)
 	}
-	fmt.Println("Vertical ", arrVer)
 	return MatchValidateDNA(arrVer)
 }
 
@@ -85,8 +82,6 @@ func RightDiagonalArray(dna []string) bool {
 		arrD2 = append(arrD2, letra)
 		letra = ""
 	}
-
-	fmt.Println("iagonalDerechas", arrD2)
 	return MatchValidateDNA(arrD2)
 }
 
@@ -140,8 +135,6 @@ func LeftDiagonalArray(dna []string) bool {
 		arrL2 = append(arrL2, letra)
 		letra = ""
 	}
-
-	fmt.Println("Diagonal izquierda", arrL2)
 	return MatchValidateDNA(arrL2)
 }
 func ValidateMatrizDimensions(dna []string) bool {
